@@ -4,11 +4,12 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import Login from 'page/login/login.js';
-import Register from './page/register/register';
+import AuthRoute from 'component/authroute/authroute';
+import Register from 'page/register/register';
+import 'antd-mobile/dist/antd-mobile.min.css';
 import {
 	BrowserRouter,
 	Route,
-	Redirect,
 	Switch
 } from 'react-router-dom'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -36,14 +37,18 @@ const store = createStore(reducers, compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
-
+function BBB(){
+	return <h2>123123</h2>
+}
 ReactDom.render(
 	(<Provider store={store}>
 		<BrowserRouter>
 			<MuiThemeProvider theme={theme}>
+			<AuthRoute />
 				<Switch>
 					<Route path='/login' component={Login} />
 					<Route path='/register' component={Register} />
+					<Route path='/bbb' component={BBB} />
 				</Switch>
 			</MuiThemeProvider>
 		</BrowserRouter>

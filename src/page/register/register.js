@@ -6,10 +6,20 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 
 class Register extends React.Component {
-    constructor(props){
-        super(props);
+    constructor() {
+        super();
+        this.state = {
+            user: '',
+            pwd: '',
+            repwd: ''
+        }
+    }
+
+    handleChange(name, el) {
+        this.setState({[name] : el.target.value});
     }
     render() {
+        const { user, pwd, repwd } = this.state;
         return <div className='register'>
             <div className='title'>
                 语
@@ -18,19 +28,19 @@ class Register extends React.Component {
                 <div className='form-item'>
                     <FormControl className='form-control'>
                         <InputLabel>用户名</InputLabel>
-                        <Input />
+                        <Input value={user} onChange={this.handleChange.bind(this, 'user')} />
                     </FormControl>
                 </div>
                 <div className='form-item' >
                     <FormControl className='form-control'>
                         <InputLabel>密码</InputLabel>
-                        <Input />
+                        <Input value={pwd} onChange={this.handleChange.bind(this, 'pwd')} />
                     </FormControl>
                 </div>
                 <div className='form-item' >
                     <FormControl className='form-control'>
                         <InputLabel>确认密码</InputLabel>
-                        <Input />
+                        <Input value={repwd} onChange={this.handleChange.bind(this, 'repwd')} />
                     </FormControl>
                 </div>
                 <div className='form-item'>

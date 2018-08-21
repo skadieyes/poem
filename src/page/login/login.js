@@ -12,7 +12,7 @@ class Login extends React.Component {
     }
 
     register(){
-
+      this.props.history.push('/register');
     }
     render() {
         return <div className='login'>
@@ -33,12 +33,12 @@ class Login extends React.Component {
                     </FormControl>
                 </div>
                 <div className='form-item'>
-                    <Button variant='contained' color='primary' className='btn' onClick = {this.register}>
+                    <Button variant='contained' color='primary' className='btn'>
                         登录
                     </Button>
                 </div>
                 <div className='form-item register'>
-                    <Button color='primary' className='register-btn'>
+                    <Button color='primary' className='register-btn'  onClick = {this.register}>
                         注册
                     </Button>
                 </div>
