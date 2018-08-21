@@ -3,7 +3,7 @@ import ReactDom from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import Login from './page/login/login';
+import Login from 'page/login/login.js';
 import Register from './page/register/register';
 import {
 	BrowserRouter,
@@ -14,18 +14,19 @@ import {
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import reducers from './reducer'
 import './config'
-
+import './style.scss'
 const theme = createMuiTheme({
 	palette: {
-		primary: {
-			light: '#f27573',
-			main: '#ef5350',
-			contrastText: '#a73a38',
-		},
-		secondary: {
+		primary: 
+		{
 			light: '#c8e4fb',
 			main: '#bbdefb',
 			contrastText: '#829baf',
+		},
+		secondary: {
+			light: '#f27573',
+			main: '#ef5350',
+			contrastText: '#a73a38',
 		},
 	},
 });
@@ -47,5 +48,5 @@ ReactDom.render(
 			</MuiThemeProvider>
 		</BrowserRouter>
 	</Provider>),
-	document.getElementById('root')
+	document.getElementById('app')
 )

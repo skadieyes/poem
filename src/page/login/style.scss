@@ -1,5 +1,5 @@
 @import 'scss/variable.scss';
-.register {
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,6 +24,14 @@
         }
         .btn {
             width: 100%;
+        }
+        .register{
+            padding: 0;
+            position: relative;
+            &-btn{
+                position: absolute;
+                right: 0;
+            }
         }
     }
 }

@@ -91,9 +91,9 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
-      page: path.resolve(__dirname, '/src/page'),
-      component: path.resolve(__dirname, '/src/component')
-
+      page: path.resolve(__dirname, './../src/page'),
+      component: path.resolve(__dirname, './../src/component'),
+      scss: path.resolve(__dirname, './../src/scss')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
