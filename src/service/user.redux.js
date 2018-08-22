@@ -1,10 +1,11 @@
 import axios from 'axios';
-
+import Common from 'util/common.js';
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG'
-
+const _common = new Common();
 const initState = {
     isAuth: false,
+    redirectTo:'',
     msg: '',
     user: '',
     pwd: ''
@@ -13,7 +14,7 @@ const initState = {
 export function user(state = initState, action) {
     switch (action.type) {
         case REGISTER_SUCCESS:
-            return { ...state, msg: '', isAuth: true, ...action.payload }
+            return { ...state, msg: '', redirectTo:_common.getRedirectPath(action.payload), isAuth: true, ...action.payload }
         case ERROR_MSG:
             return { ...state, isAuth: false, msg: action.msg }
         default:
@@ -22,10 +23,12 @@ export function user(state = initState, action) {
 }
 
 function errorMsg(msg) {
+    _common.errorTips(msg);
     return { msg, type: ERROR_MSG }
 }
 
 function registerSuccess(data) {
+    _common.successTips('注册成功');
     return { type: REGISTER_SUCCESS, payload: data }
 }
 

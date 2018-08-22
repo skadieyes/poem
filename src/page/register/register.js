@@ -4,7 +4,14 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { register } from 'service/user.redux';
 
+@connect(
+    state => state.user,
+    { register }
+)
 class Register extends React.Component {
     constructor() {
         super();
@@ -16,11 +23,16 @@ class Register extends React.Component {
     }
 
     handleChange(name, el) {
-        this.setState({[name] : el.target.value});
+        this.setState({ [name]: el.target.value });
+    }
+
+    handleClick() {
+        this.props.register(this.state);
     }
     render() {
         const { user, pwd, repwd } = this.state;
         return <div className='register'>
+            {this.props.redirectTo && <Redirect to={this.props.redirectTo} />}
             <div className='title'>
                 语
         </div>
@@ -44,7 +56,7 @@ class Register extends React.Component {
                     </FormControl>
                 </div>
                 <div className='form-item'>
-                    <Button variant="contained" color="primary" className='btn' >
+                    <Button variant="contained" color="primary" className='btn' onClick={this.handleClick.bind(this)}>
                         成为用户
                     </Button>
                 </div>
