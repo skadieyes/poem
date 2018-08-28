@@ -1,0 +1,16 @@
+@import 'scss/variable.scss';
+.header {
+    background-color: $primary;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 1rem;
+    text-align: center;
+    position: relative;
+    .back{
+        left: 0.5rem;
+        position: absolute;
+    }
+    .title{
+        
+    }
+}

@@ -98,7 +98,8 @@ module.exports = {
       component: path.resolve(__dirname, './../src/component'),
       scss: path.resolve(__dirname, './../src/scss'),
       service: path.resolve(__dirname, './../src/service'),
-      util: path.resolve(__dirname, './../src/util')
+      util: path.resolve(__dirname, './../src/util'),
+      assets: path.resolve(__dirname, './../src/assets')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

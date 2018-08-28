@@ -3,13 +3,13 @@ import Common from 'util/common.js';
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG'
 const LOGIN_SUCESS = 'LOGIN_SUCESS'
+const LOAD_DATA = 'LOAD_DATA'
 const _common = new Common();
 const initState = {
     isAuth: false,
     redirectTo: '',
     msg: '',
-    user: '',
-    pwd: ''
+    user: ''
 }
 // reducer
 export function user(state = initState, action) {
@@ -19,7 +19,9 @@ export function user(state = initState, action) {
         case LOGIN_SUCESS: // 登录成功
             return { ...state, msg: '', redirectTo: _common.getRedirectPath(action.payload), isAuth: true, ...action.payload }
         case ERROR_MSG: // 失败
-            return { ...state, isAuth: false, msg: action.msg }
+            return { ...state, isAuth: false, msg: action.msg };
+        case LOAD_DATA:
+            return { ...state, ...action.payload }
         default:
             return state
     }
@@ -30,7 +32,6 @@ function errorMsg(msg) {
     return { msg, type: ERROR_MSG }
 }
 function loginSuccess(data) {
-    console.log(data);
     _common.successTips('登录成功');
     return { type: LOGIN_SUCESS, payload: data };
 }
@@ -72,4 +73,9 @@ export function login({ user, pwd }) {
             }
         })
     }
+}
+
+// 获取用户信息
+export function loadData(userinfo) {
+    return { type: LOAD_DATA, payload: userinfo }
 }

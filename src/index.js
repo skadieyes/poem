@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import reducers from './reducer'
+import Information from 'page/information/information'
 import './config'
 import './style.scss'
 const theme = createMuiTheme({
@@ -37,9 +38,6 @@ const store = createStore(reducers, compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
-function BBB(){
-	return <h2>123123</h2>
-}
 ReactDom.render(
 	(<Provider store={store}>
 		<BrowserRouter>
@@ -48,7 +46,7 @@ ReactDom.render(
 				<Switch>
 					<Route path='/login' component={Login} />
 					<Route path='/register' component={Register} />
-					<Route path='/bbb' component={BBB} />
+					<Route path='/info' component={Information} />
 				</Switch>
 			</MuiThemeProvider>
 		</BrowserRouter>

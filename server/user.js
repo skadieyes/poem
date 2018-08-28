@@ -3,6 +3,8 @@ const utils = require('utility')
 const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user')
+// 不显示密码
+const _filter = { 'pwd': 0, '__v': 0 };
 
 // 用户列表
 Router.get('/list', function (req, res) {
@@ -14,7 +16,19 @@ Router.get('/list', function (req, res) {
 
 // 用户有没有cookie
 Router.get('/info', function (req, res) {
-    return res.json({ code: 0 });
+    const { userid } = req.cookies;
+    if (!userid) {
+        return res.json({ code: 1, msg: '请登录' });
+    } else {
+        User.findOne({ _id: userid }, _filter, function (err, doc) {
+            if (err) {
+                return res.json({ code: 1, msg: '后端出错了' })
+            }
+            if (doc) {
+                return res.json({ code: 0, data: doc });
+            }
+        })
+    }
 })
 // 用户注册
 Router.post('/register', function (req, res) {
@@ -24,11 +38,14 @@ Router.post('/register', function (req, res) {
             return res.json({ code: 1, msg: '用户名重复' })
         } else {
             const encryption = md5PWd(pwd);
-            User.create({ user, pwd: encryption }, function (e, d) {
+            const userModel = new User({ user, pwd: encryption });
+            userModel.save(function (e, d) {
                 if (e) {
                     return res.json({ code: 1, msg: '服务器出错啦' })
                 } else {
-                    return res.json({ code: 0, msg: '注册成功' });
+                    const { user, type, _id } = d;
+                    res.cookie('userid', _id);
+                    return res.json({ code: 0, msg: '注册成功', data: { user, type, _id } });
                 }
             })
         }
@@ -47,7 +64,8 @@ Router.post('/login', function (req, res) {
                 return res.json({ code: 1, msg: '密码错误' })
             } else {
                 doc.pwd = 0;
-                return res.json({ code: 0, msg: '登录成功' , data: doc})
+                res.cookie('userid', doc._id);
+                return res.json({ code: 0, msg: '登录成功', data: doc })
             }
         }
     })

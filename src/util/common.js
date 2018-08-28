@@ -2,6 +2,10 @@ import message from 'antd/lib/message';
 import 'antd/lib/message/style/css';
 
 class Common {
+  // 提示
+  defaultTips(msg) {
+    message.info(msg || '');
+  }
   // 错误提示
   errorTips(errMsg) {
     message.error(errMsg || '好像哪里出错了');
