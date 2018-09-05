@@ -17,19 +17,23 @@ class Information extends React.Component {
         return url;
     }
     render() {
-        const imgList = this.state;
+        const { imgList } = this.state;
+        console.log(imgList);
         return (
-            <div className='page'>
+            <div className='page information-page'>
                 <Header title={'完善信息'} backShow={false} />
                 <div className='page-content'>
+                <label className='label'>选择头像</label>
                     <Row gutter={16}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="gutter-box">
-                                <div className='avatar-box'>
-                                    <Avatar alt="Remy Sharp" src={this.getImgUrl('boy')} className='avatar' />
-                                </div>
-                            </div>
-                        </Col>
+                        {
+                            imgList && imgList.map((item, index) => {
+                                return <Col span={6} key={index} className='col'>
+                                    <div className='avatar-box'>
+                                        <Avatar alt={item} src={this.getImgUrl(item)} className='avatar' />
+                                    </div>
+                                </Col>
+                            })
+                        }
                     </Row>
                 </div>
             </div>

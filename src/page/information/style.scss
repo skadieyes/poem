@@ -1,12 +1,22 @@
-.avatar-box{
-    width: 50px;
-    height: 50px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 50%;
-    .avatar{
-        width: auto;
-        height: auto;
-        padding: 0.2rem;
+.information-page {
+    .page-content {
+        .col {
+            padding: 0.5rem 0;
+        }
+        .label{
+            padding-left: 0.5rem;
+        }
+        .avatar-box {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 50%;
+            .avatar {
+                width: auto;
+                height: auto;
+                padding: 0.2rem;
+            }
+        }
     }
 }

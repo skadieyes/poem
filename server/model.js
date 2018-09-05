@@ -10,18 +10,18 @@ const models = {
         'user': { type: String, require: true },
         'pwd': { type: String, require: true },
         // 头像
-        'photo' : { type: String, require: true},
+        'photo': { type: String, require: true },
         // 个人简介
-        'intro' : {type: String, require: false}
+        'intro': { type: String, require: false }
     }
 }
 
-for(let m in models){
-	mongoose.model(m, new mongoose.Schema(models[m]))
+for (let m in models) {
+    mongoose.model(m, new mongoose.Schema(models[m]))
 }
 
 module.exports = {
-	getModel:function(name){
-		return mongoose.model(name)
-	}
+    getModel: function (name) {
+        return mongoose.model(name)
+    }
 }
