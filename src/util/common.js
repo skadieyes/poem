@@ -1,26 +1,26 @@
-import message from 'antd/lib/message';
-import 'antd/lib/message/style/css';
-
+import Toast from 'antd-mobile/lib/toast';
 class Common {
-  // 提示
-  defaultTips(msg) {
-    message.info(msg || '');
-  }
-  // 错误提示
-  errorTips(errMsg) {
-    message.error(errMsg || '好像哪里出错了');
-  }
-  // 成功提示
-  successTips(successMsg) {
-    message.success(successMsg || '操作成功');
-  }
-  getRedirectPath({ photo }) {
-    let url = '/';
-    if (!photo) {
-      url += 'info';
+    // 提示
+    defaultTips(msg) {
+        Toast.info(msg || '', 1);
     }
-    return url;
-  }
+    // 错误提示
+    errorTips(errMsg) {
+        Toast.fail(errMsg || '好像哪里出错了', 1);
+    }
+    // 成功提示
+    successTips(successMsg) {
+        Toast.success(successMsg || '操作成功', 1);
+    }
+    getRedirectPath({ photo }) {
+        let url = '/';
+        if (!photo) {
+            url += 'info';
+        } else {
+            url = '/dashboard';
+        }
+        return url;
+    }
 }
 
 export default Common;

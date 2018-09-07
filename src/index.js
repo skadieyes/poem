@@ -6,11 +6,13 @@ import { Provider } from 'react-redux'
 import Login from 'page/login/login.js';
 import AuthRoute from 'component/authroute/authroute';
 import Register from 'page/register/register';
+import Dashboard from 'page/dashboard/dashboard';
+import Structure from 'component/structure/structure';
 import 'antd-mobile/dist/antd-mobile.min.css';
 import {
-	BrowserRouter,
-	Route,
-	Switch
+    BrowserRouter,
+    Route,
+    Switch
 } from 'react-router-dom'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import reducers from './reducer'
@@ -18,38 +20,48 @@ import Information from 'page/information/information'
 import './config'
 import './style.scss'
 const theme = createMuiTheme({
-	palette: {
-		primary: 
-		{
-			light: '#c8e4fb',
-			main: '#bbdefb',
-			contrastText: '#829baf',
-		},
-		secondary: {
-			light: '#f27573',
-			main: '#ef5350',
-			contrastText: '#a73a38',
-		},
-	},
+    palette: {
+        primary:
+        {
+            light: '#c8e4fb',
+            main: '#bbdefb',
+            contrastText: '#829baf',
+        },
+        secondary: {
+            light: '#f27573',
+            main: '#ef5350',
+            contrastText: '#a73a38',
+        },
+    },
 });
 
 
 const store = createStore(reducers, compose(
-	applyMiddleware(thunk),
-	window.devToolsExtension ? window.devToolsExtension() : f => f
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
+let StructureRouter = (
+    <Structure>
+        <Switch>
+            <Route exact path='/dashboard' component={Dashboard} />
+        </Switch>
+    </Structure>
+);
 ReactDom.render(
-	(<Provider store={store}>
-		<BrowserRouter>
-			<MuiThemeProvider theme={theme}>
-			<AuthRoute />
-				<Switch>
-					<Route path='/login' component={Login} />
-					<Route path='/register' component={Register} />
-					<Route path='/info' component={Information} />
-				</Switch>
-			</MuiThemeProvider>
-		</BrowserRouter>
-	</Provider>),
-	document.getElementById('app')
+    (<Provider store={store}>
+        <BrowserRouter>
+            <MuiThemeProvider theme={theme}>
+                <AuthRoute />
+                <Switch>
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
+                    <Route path='/info' component={Information} />
+                    <Route path='/' render={props => {
+                        return StructureRouter
+                    }} />
+                </Switch>
+            </MuiThemeProvider>
+        </BrowserRouter>
+    </Provider>),
+    document.getElementById('app')
 )

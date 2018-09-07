@@ -76,5 +76,20 @@ function md5PWd(pwd) {
     return utils.md5(utils.md5(pwd + salt));
 }
 
-// 用户注册
+// 用户完善信息
+Router.post('/update', function (req, res) {
+    const userid = req.cookies.userid;
+    if (!userid) {
+        return json.dumps({ code: 1 });
+    }
+    const body = req.body;
+    User.findByIdAndUpdate(userid, body, function (err, doc) {
+        const data = Object.assign({}, {
+            user: doc.user,
+            type: doc.type
+        }, body)
+        return res.json({ code: 0, data })
+    })
+})
+
 module.exports = Router

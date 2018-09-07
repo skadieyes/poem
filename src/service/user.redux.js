@@ -1,8 +1,7 @@
 import axios from 'axios';
 import Common from 'util/common.js';
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG'
-const LOGIN_SUCESS = 'LOGIN_SUCESS'
 const LOAD_DATA = 'LOAD_DATA'
 const _common = new Common();
 const initState = {
@@ -14,9 +13,7 @@ const initState = {
 // reducer
 export function user(state = initState, action) {
     switch (action.type) {
-        case REGISTER_SUCCESS: // 注册成功
-            return { ...state, msg: '', redirectTo: _common.getRedirectPath(action.payload), isAuth: true, ...action.payload }
-        case LOGIN_SUCESS: // 登录成功
+        case AUTH_SUCCESS: // 验证成功
             return { ...state, msg: '', redirectTo: _common.getRedirectPath(action.payload), isAuth: true, ...action.payload }
         case ERROR_MSG: // 失败
             return { ...state, isAuth: false, msg: action.msg };
@@ -31,13 +28,8 @@ function errorMsg(msg) {
     _common.errorTips(msg);
     return { msg, type: ERROR_MSG }
 }
-function loginSuccess(data) {
-    _common.successTips('登录成功');
-    return { type: LOGIN_SUCESS, payload: data };
-}
-function registerSuccess(data) {
-    _common.successTips('注册成功');
-    return { type: REGISTER_SUCCESS, payload: data }
+function authSuccess(data) {
+    return { type: AUTH_SUCCESS, payload: data }
 }
 
 // 注册
@@ -51,7 +43,8 @@ export function register({ user, pwd, repwd }) {
     return dispatch => {
         axios.post('/user/register', { user, pwd, repwd }).then(res => {
             if (res.status === 200 && res.data.code === 0) {
-                dispatch(registerSuccess({ user, pwd, repwd }));
+                _common.successTips(res.data.msg);
+                dispatch(authSuccess({ user, pwd, repwd }));
             } else {
                 dispatch(errorMsg(res.data.msg));
             }
@@ -67,7 +60,8 @@ export function login({ user, pwd }) {
     return dispatch => {
         axios.post('/user/login', { user, pwd }).then(res => {
             if (res.status === 200 && res.data.code === 0) {
-                dispatch(loginSuccess(res.data.data));
+                _common.successTips(res.data.msg);
+                dispatch(authSuccess(res.data.data));
             } else {
                 dispatch(errorMsg(res.data.msg));
             }
@@ -78,4 +72,17 @@ export function login({ user, pwd }) {
 // 获取用户信息
 export function loadData(userinfo) {
     return { type: LOAD_DATA, payload: userinfo }
+}
+// 完善信息
+export function update(data) {
+    return dispatch => {
+        axios.post('/user/update', data).then(res => {
+            if (res.status === 200 && res.data.code === 0) {
+                _common.successTips(res.data.msg);
+                dispatch(authSuccess(res.data.data));
+            } else {
+                dispatch(errorMsg(res.data.msg));
+            }
+        })
+    }
 }

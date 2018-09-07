@@ -3,7 +3,7 @@
         .col {
             padding: 0.5rem 0;
         }
-        .label{
+        .label {
             padding-left: 0.5rem;
         }
         .avatar-box {
@@ -18,5 +18,15 @@
                 padding: 0.2rem;
             }
         }
+    }
+    .page-bottom {
+        padding: 10px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+    }
+    .active{
+        border:2px solid #ffc107 !important;
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(178,135,4,0.4);
     }
 }

@@ -1,0 +1,10 @@
+@import 'scss/variable.scss';
+.structure{
+    .bottom{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top:1px solid $primary; 
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(178,135,4,0.4);
+    }
+}
